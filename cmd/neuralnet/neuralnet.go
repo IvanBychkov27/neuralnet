@@ -58,7 +58,7 @@ func loadNeuralNet(logger *zap.Logger) {
 	fileNameNeuralNet := "data/nn/gonn_7_32_17_170"
 	net.LoadNN(fileNameNeuralNet)
 
-	data, expected := []float64{0.65535, 0.64, 0.9, 0.2, 0.53, 0.7327042439008, 0.1460}, "iOS"
+	//data, expected := []float64{0.65535, 0.64, 0.9, 0.2, 0.53, 0.7327042439008, 0.1460}, "iOS"
 	//data, expected := []float64{0.65535,0.60,0.9,0.2,0.54,0.15207360277883,0.1400}, "Android"
 	//data, expected := []float64{0.64240,0.52,0.9,0.2,0.119,0.17536972182053,0.1460}, "Windows"
 	//data, expected := []float64{0.65535,0.64,0.9,0.2,0.51,0.7327042439008,0.1460}, "macOS"
@@ -77,8 +77,8 @@ func loadNeuralNet(logger *zap.Logger) {
 	//data, expected := []float64{0.14600,0.60,0.9,0.2,0.45,0.26547435639462,0.1400}, "FreeBSD"
 	//data, expected := []float64{0.65535,0.60,0.9,0.2,0.57,0.4291979184917,0.1452}, "FreeBSD"
 	//data, expected := []float64{0.65535,0.64,0.9,0.2,0.42,0.15745999206570,0.1412}, "BlackBerry"
-	//data, expected := []float64{0.65535,0.52,0.9,0.2,0.115,0.30724801112478,0.1360}, "Trident"
+	data, expected := []float64{0.65535, 0.52, 0.9, 0.2, 0.115, 0.30724801112478, 0.1360}, "Trident"
 
-	out := net.ResultFromNN(data)
+	out := net.GetResultFromNN(data)
 	fmt.Println(net.ResultPlName(out, expected))
 }

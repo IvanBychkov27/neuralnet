@@ -21,8 +21,21 @@ func (w *WorkNN) LoadNN(fileNameNN string) {
 	w.nn = gonn.LoadNN(fileNameNN)
 }
 
-// ResultFromNN - получаем результат от нейросети
-func (w *WorkNN) ResultFromNN(data []float64) []float64 {
+// GetResultFromNN - получаем результат от нейросети
+func (w *WorkNN) GetResultFromNN(data []float64) []float64 {
+	inputNeurons := len(w.nn.InputLayer) - 1
+
+	if len(data) < inputNeurons {
+		w.logger.Debug("attention! not enough input data!")
+		for len(data) < inputNeurons {
+			data = append(data, 0)
+		}
+	}
+	if len(data) > inputNeurons {
+		w.logger.Debug("attention! lots of input data!")
+		data = data[:inputNeurons]
+	}
+
 	return w.nn.Forward(data)
 }
 

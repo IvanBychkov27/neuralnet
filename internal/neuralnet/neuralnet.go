@@ -33,6 +33,11 @@ func (net *NN) CreateNeuralNet() {
 	net.nn = gonn.NewNetwork(net.inputCount, net.hiddenCount, net.outputCount, net.regression, net.rate1, net.rate2)
 }
 
+// BuildTrainDataForNeuralNet - строит входные и выходные данные для нейронной сети
+func (net *NN) BuildTrainDataForNeuralNet(fileName string, countPlNameForTrain int) (input, target [][]float64) {
+	return net.processingBigData(fileName, countPlNameForTrain)
+}
+
 // TrainNeuralNet - Обучаем нейросеть
 func (net *NN) TrainNeuralNet(input, target [][]float64, iteration int) {
 	net.nn.Train(input, target, iteration)

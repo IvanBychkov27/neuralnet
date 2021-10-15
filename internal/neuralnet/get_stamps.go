@@ -1,7 +1,7 @@
 package neuralnet
 
 import (
-	"fmt"
+	"go.uber.org/zap"
 	"io/ioutil"
 	"strings"
 )
@@ -14,12 +14,12 @@ type stampDataFromFile struct {
 func (net *NN) getStampsDataFromFile(fileName string) []stampDataFromFile {
 	file, errOpen := ioutil.ReadFile(fileName)
 	if errOpen != nil {
-		fmt.Println("error open file stamp data", errOpen.Error())
+		net.logger.Error("error open file stamp data", zap.Error(errOpen))
 		return nil
 	}
 
 	dataFile := strings.Split(string(file), "\n")
-	fmt.Println("dataFile", len(dataFile))
+	net.logger.Debug("data file", zap.Int("lines", len(dataFile)))
 
 	dStamp := make([]stampDataFromFile, 0, 150000)
 	for _, lineFile := range dataFile {

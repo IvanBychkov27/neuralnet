@@ -9,15 +9,11 @@ import (
 	"strings"
 )
 
-func (net *NN) BuildTrainDataForNeuralNet(fileName string) (input, target [][]float64) {
-	return net.processingBigData(fileName)
-}
-
-func (net *NN) processingBigData(fileName string) (input, target [][]float64) {
+func (net *NN) processingBigData(fileName string, countPlNameForTrain int) (input, target [][]float64) {
 	stamps := net.getStampsDataFromFile(fileName)
 	net.logger.Debug("getStampsDataFromFile", zap.Int("stamps", len(stamps)))
 
-	dataTrain, countLines := net.buildTrainData(stamps, 78)
+	dataTrain, countLines := net.buildTrainData(stamps, countPlNameForTrain)
 
 	dataFileName := fmt.Sprintf("%d_%d_%d_%d", net.inputCount, net.hiddenCount, net.outputCount, countLines)
 	fileNameSave := "data/traindata/train_" + dataFileName + ".csv"

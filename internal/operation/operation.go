@@ -19,6 +19,7 @@ func WorkNeuralNet(logger *zap.Logger) *WorkNN {
 // LoadNN - загрузка нейросети из файла
 func (w *WorkNN) LoadNN(fileNameNN string) {
 	w.nn = gonn.LoadNN(fileNameNN)
+	//w.logger.Debug("neuralnet is loaded", zap.Int("input", len(w.nn.InputLayer)-1),zap.Int("output", len(w.nn.HiddenLayer)-1), zap.Int("output", len(w.nn.OutputLayer)))
 }
 
 // GetResultFromNN - получаем результат от нейросети

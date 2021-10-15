@@ -58,10 +58,27 @@ func loadNeuralNet(logger *zap.Logger) {
 	fileNameNeuralNet := "data/nn/gonn_7_32_17_170"
 	net.LoadNN(fileNameNeuralNet)
 
-	data := []float64{0.65535, 0.64, 0.9, 0.2, 0.53, 0.7327042439008, 0.1460} // iOS
+	data, expected := []float64{0.65535, 0.64, 0.9, 0.2, 0.53, 0.7327042439008, 0.1460}, "iOS"
+	//data, expected := []float64{0.65535,0.60,0.9,0.2,0.54,0.15207360277883,0.1400}, "Android"
+	//data, expected := []float64{0.64240,0.52,0.9,0.2,0.119,0.17536972182053,0.1460}, "Windows"
+	//data, expected := []float64{0.65535,0.64,0.9,0.2,0.51,0.7327042439008,0.1460}, "macOS"
+	//data, expected := []float64{0.65535,0.64,0.9,0.2,0.50,0.21994876700036,0.1460}, "iPadOS"
+	//data, expected := []float64{0.65535,0.52,0.9,0.2,0.56,0.10808706590817,0.1350}, "Linux"
+	//data, expected := []float64{0.65535,0.60,0.9,0.2,0.56,0.3675683890415,0.1460}, "Linux"
+	//data, expected := []float64{0.29200,0.60,0.9,0.2,0.44,0.3675683890415,0.1460}, "LinuxChrome OS"
+	//data, expected := []float64{0.65535,0.60,0.9,0.2,0.50,0.12750133365872,0.1460}, "PlayStation 4"
+	//data, expected := []float64{0.29200,0.60,0.9,0.2,0.56,0.3675683890415,0.1460}, "Tizen"
+	//data, expected := []float64{0.29200,0.60,0.9,0.2,0.54,0.1896782563223,0.1360}, "Tizen"
+	//data, expected := []float64{0.65535,0.64,0.9,0.2,0.54,0.13628494042045,0.1320}, "Darwin"
+	//data, expected := []float64{0.29200,0.60,0.9,0.2,0.55,0.3675683890415,0.1460}, "NetCast"
+	//data, expected := []float64{0.29200,0.60,0.9,0.2,0.49,0.19823331574194,0.1370}, "KAIOS"
+	//data, expected := []float64{0.65535,0.52,0.9,0.2,0.115,0.12925616690364,0.1420}, "Windows Phone"
+	//data, expected := []float64{0.14600,0.60,0.9,0.2,0.59,0.3675683890415,0.1460}, "SmartTV"
+	//data, expected := []float64{0.14600,0.60,0.9,0.2,0.45,0.26547435639462,0.1400}, "FreeBSD"
+	//data, expected := []float64{0.65535,0.60,0.9,0.2,0.57,0.4291979184917,0.1452}, "FreeBSD"
+	//data, expected := []float64{0.65535,0.64,0.9,0.2,0.42,0.15745999206570,0.1412}, "BlackBerry"
+	//data, expected := []float64{0.65535,0.52,0.9,0.2,0.115,0.30724801112478,0.1360}, "Trident"
 
 	out := net.ResultFromNN(data)
-	res := net.ResultPlName(out)
-
-	fmt.Println(res)
+	fmt.Println(net.ResultPlName(out, expected))
 }

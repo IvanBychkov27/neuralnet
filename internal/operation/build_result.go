@@ -6,7 +6,7 @@ import (
 )
 
 // buildResult - возвращает ответ от нейросети в виде строки
-func (w *WorkNN) buildResult(output []float64) string {
+func (w *WorkNN) buildResult(output []float64, expected string) string {
 	type tempData struct {
 		plName string
 		score  float64
@@ -64,8 +64,11 @@ func (w *WorkNN) buildResult(output []float64) string {
 		return resData[i].score > resData[j].score // сортировка по убыванию
 	})
 
-	res := ""
+	res := "name: NO\n----------------------------\n"
 	for i, d := range resData {
+		if i == 0 && d.plName == expected {
+			res = "name: " + d.plName + "  OK!\n-------------------\n"
+		}
 		res += fmt.Sprintf("%d: %.3f  %s\n", i, d.score, d.plName)
 	}
 

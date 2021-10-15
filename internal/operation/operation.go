@@ -27,6 +27,6 @@ func (w *WorkNN) ResultFromNN(data []float64) []float64 {
 }
 
 // ResultPlName - возвращает ответ от нейросети в виде строки
-func (w *WorkNN) ResultPlName(data []float64) string {
-	return w.buildResult(data)
+func (w *WorkNN) ResultPlName(data []float64, expected string) string {
+	return w.buildResult(data, expected)
 }

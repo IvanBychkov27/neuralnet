@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/IvanBychkov27/neuralnet/internal/neuralnet"
+	"github.com/IvanBychkov27/neuralnet/internal/operation"
 	"go.uber.org/zap"
 )
 
@@ -12,13 +13,14 @@ func main() {
 		fmt.Printf("error init zap logger, %v \n", err)
 		return
 	}
-	logger.Debug("Start neuralnet")
+	// создаем и тренируем нейросеть
+	//createAndTrainNeuralNet(logger)
 
-	createAndTrainNeuralNet(logger)
-
-	logger.Debug("Done...")
+	// загружаем нейросеть из файла и получаем результат
+	loadNeuralNet(logger)
 }
 
+// createAndTrainNeuralNet - создает и обучает нейронную сеть
 func createAndTrainNeuralNet(logger *zap.Logger) {
 	// входные параметры нейронной сети
 	inputCount := 7   // кол-во входных нейронов
@@ -47,4 +49,19 @@ func createAndTrainNeuralNet(logger *zap.Logger) {
 	net.SaveNeuralNet(fileNameNeuralNet)
 
 	logger.Debug("neuralnet saved", zap.String("file name", fileNameNeuralNet))
+}
+
+// loadNeuralNet - загружаем нейронную сеть и получаем результат работы нейросети
+func loadNeuralNet(logger *zap.Logger) {
+	net := operation.WorkNeuralNet(logger)
+
+	fileNameNeuralNet := "data/nn/gonn_7_32_17_170"
+	net.LoadNN(fileNameNeuralNet)
+
+	data := []float64{0.65535, 0.64, 0.9, 0.2, 0.53, 0.7327042439008, 0.1460} // iOS
+
+	out := net.ResultFromNN(data)
+	res := net.ResultPlName(out)
+
+	fmt.Println(res)
 }

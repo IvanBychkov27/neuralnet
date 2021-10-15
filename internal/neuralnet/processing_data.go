@@ -208,7 +208,6 @@ func (net *NN) getTrainDataForNeuralNet(fileName string) (inputs, targets [][]fl
 
 	rawCSVData, err := reader.ReadAll()
 	if err != nil {
-		fmt.Println("error ReadAll:", err.Error())
 		net.logger.Error("error read data train file", zap.Error(err))
 		return
 	}
@@ -225,7 +224,7 @@ func (net *NN) getTrainDataForNeuralNet(fileName string) (inputs, targets [][]fl
 		for i, val := range record {
 			d, errPars := strconv.ParseFloat(val, 64)
 			if errPars != nil {
-				fmt.Println("error:", errPars)
+				net.logger.Error("error parse float", zap.Error(err))
 				return
 			}
 			if i < inp {

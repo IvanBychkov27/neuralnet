@@ -30,8 +30,10 @@ func (net *NN) buildTrainData(stamps []stampDataFromFile, countPlNameForTrain in
 		countDarwin, countNetCast, countKAIOS, countWindowsPhone,
 		countSmartTV, countFreeBSD, countBlackBerry, countTrident int
 
-	// 7 входных и 17 выходных нейронов для нейронной сети
-	res := "TCPWindowSize,TCPHeaderLength,IPFlags,TCPFlags,IPTTL,TCPOptions,MSS," +
+	var res string
+
+	// 26 входных и 17 выходных нейронов для нейронной сети
+	res = "TCPWindowSize,TCPHeaderLength,IPFlags,TCPFlags,IPTTL,TCPOptions1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,MSS," +
 		"Android,iOS,Windows,macOS,iPadOS,Linux,LinuxChromeOS,PlayStation4,Tizen,Darwin,NetCast,KAIOS," +
 		"WindowsPhone,SmartTV,FreeBSD,BlackBerry,Trident\n"
 
@@ -158,7 +160,7 @@ func (net *NN) buildTrainData(stamps []stampDataFromFile, countPlNameForTrain in
 		stamp := parseStamp(st.stamp)
 
 		// 7 входных и 17 выходных данных
-		res += fmt.Sprintf("0.%s,0.%s,0.%s,0.%s,0.%s,0.%s,0.%s,%s\n",
+		res += fmt.Sprintf("0.%s,0.%s,0.%s,0.%s,0.%s,%s,0.%s,%s\n",
 			stamp.TCPWindowSize,   // 1
 			stamp.TCPHeaderLength, // 2
 			stamp.IPFlags,         // 3

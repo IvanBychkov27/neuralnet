@@ -29,7 +29,7 @@ func parseStamp(stamp string) stampData {
 	d.IPFlags = getIPFlags(s[2])
 	d.TCPFlags = s[3]
 	d.TCPHeaderLength = s[4]
-	d.TCPOptions = convertHexInDec(md5Data(s[5]))
+	d.TCPOptions = convertOptionsInSliceInt(s[5])
 	d.MSS = getMSS(s[5])
 
 	return d
@@ -56,6 +56,27 @@ func getMSS(dTCPOptions string) string {
 	}
 	return mss[1:]
 }
+
+func convertOptionsInSliceInt(options string) string {
+	ds := strings.Split(options, ",")
+	res := make([]string, 20, 20)
+	j := 0
+	for i, d := range ds {
+		data := []byte(d)
+		sum := 0
+		for _, v := range data {
+			sum += int(v)
+		}
+		res[i] = fmt.Sprintf("0.%d", sum)
+		j = i
+	}
+	for i := j + 1; i < len(res); i++ {
+		res[i] = "0"
+	}
+	return strings.Join(res, ",")
+}
+
+// --------------------
 
 func md5Data(data string) string {
 	h := md5.Sum([]byte(data))

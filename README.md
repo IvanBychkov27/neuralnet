@@ -1,1 +1,1 @@
-# neuralnet
+# neuralnet - нейросеть
